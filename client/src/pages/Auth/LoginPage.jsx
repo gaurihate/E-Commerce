@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Layout from "../../component/layout/Layout";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "../../style/AuthStyle.css";
 import { useAuth } from "../../context/auth.jsx";//
 
@@ -12,6 +12,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const API = import.meta.env.VITE_API_URL;
     const [auth, setAuth] = useAuth() //
+    const location = useLocation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,7 +32,7 @@ const LoginPage = () => {
                 });
                 //after refresh data lost so we store it in local stroage
                 localStorage.setItem("auth", JSON.stringify(res.data));
-                navigate("/");
+                navigate(location.state || "/");
             } else {
                 toast.error(res.data.message);
             }
@@ -68,6 +69,15 @@ const LoginPage = () => {
                     <button type="submit" className="btn btn-primary">
                         Login
                     </button>
+
+                    <button
+                        type="button"
+                        className="btn btn-link"
+                        onClick={() => navigate("/forgot-password")}
+                    >
+                        Forgot Password?
+                    </button>
+
                 </form>
             </div>
         </Layout>

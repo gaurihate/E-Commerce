@@ -13,16 +13,17 @@ const RegisterPage = () => {
     const [password, setPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [question, setQuestion] = useState("");
     const navigate = useNavigate()
     const API = import.meta.env.VITE_API_URL;
     //form function 
     const handleSubmit = async (e) => {
         e.preventDefault()                                  //stop browser to referersing page from submit
-        console.log(name, email, password, address, phone);
+        console.log(name, email, password, phone, address);
         toast.success("register successfully");
 
         try {
-            const res = await axios.post(`${API}/api/v1/auth/register`, { name, email, password, phone, address }); //send data to backend usinf cors and .env
+            const res = await axios.post(`${API}/api/v1/auth/register`, { name, email, password, phone, question, address }); //send data to backend usinf cors and .env
             // const res = await axios.post("/api/v1/auth/register", { name, email, password, phone, address }); ====> send data using proxy no need to install cors pakage
 
             if (res.data.success) {    //data came from backend at res.data
@@ -102,6 +103,18 @@ const RegisterPage = () => {
                             required
                         />
                     </div>
+
+                    <div className="mb-3">
+                        <input
+                            type="text"
+                            value={question}
+                            onChange={(e) => setQuestion(e.target.value)}
+                            className="form-control"
+                            placeholder="Enter School Name"
+                            required
+                        />
+                    </div>
+
 
                     <button type="submit" className="btn btn-primary">
                         Register

@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, createContext } from "react";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -7,20 +8,21 @@ const AuthProvider = ({ children }) => {
         user: null,
         token: "",
     });
-    //refresh page stop
+
+    // 🔁 Restore auth after refresh
     useEffect(() => {
-        const data = localStorage.getItem('auth')
+        const data = localStorage.getItem("auth");
         if (data) {
-
-
-            const parseData = JSON.parse(data)
-            setAuth({
-                ...auth,
-                user: parseData.user,
-                token: parseData.token
-            })
+            setAuth(JSON.parse(data));
         }
-    }, []) //[auth]//caused infinite loop so naviagtion struck so remove it
+    }, []);
+
+    // 🔐 Set axios header when token changes
+    useEffect(() => {
+        if (auth?.token) {
+            axios.defaults.headers.common["Authorization"] = auth.token;
+        }
+    }, [auth.token]);
 
     return (
         <AuthContext.Provider value={[auth, setAuth]}>
@@ -29,7 +31,6 @@ const AuthProvider = ({ children }) => {
     );
 };
 
-// custom hook
 const useAuth = () => useContext(AuthContext);
 
 export { useAuth, AuthProvider };

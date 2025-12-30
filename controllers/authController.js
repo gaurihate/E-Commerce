@@ -1,10 +1,10 @@
 import { compare } from "bcrypt";
-import { comparePassword, hashPassword } from "../helpers/authHelper.js";
+import { comparePassword, hashPassword } from "../helpers/authHelper.js";   //passward ahsing componenet
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 export const registerController = async (req, res) => {
     try {
-        const { name, email, password, phone, address, role } = req.body
+        const { name, email, password, question, phone, address } = req.body
 
         //validatiin 
 
@@ -23,7 +23,9 @@ export const registerController = async (req, res) => {
         if (!address) {
             return res.send({ message: 'address is required' })
         }
-
+        if (!question) {
+            return res.send({ message: ' required answer' })
+        }
 
         //check  user
         const exitinguser = await userModel.findOne({ email })
@@ -40,7 +42,7 @@ export const registerController = async (req, res) => {
         const hashedpassword = await hashPassword(password)
 
         //save
-        const user = await new userModel({ name, email, password: hashedpassword, phone, address, role }).save()
+        const user = await new userModel({ name, email, password: hashedpassword, phone, question, address }).save()
 
         res.status(201).send({
             success: true,
@@ -58,6 +60,8 @@ export const registerController = async (req, res) => {
         })
     }
 };
+
+
 
 
 //post login 
@@ -111,6 +115,73 @@ export const loginController = async (req, res) => {
         })
     }
 };
+
+
+
+
+
+// forgotPasswordController
+export const forgotPasswordController = async (req, res) => {
+    try {
+        const { email, question, newPassword } = req.body;
+
+        // validation
+        if (!email) {
+            return res.status(400).send({
+                success: false,
+                message: "Email is required",
+            });
+        }
+
+        if (!question) {
+            return res.status(400).send({
+                success: false,
+                message: "Answer is required",
+            });
+        }
+
+        if (!newPassword) {
+            return res.status(400).send({
+                success: false,
+                message: "New password is required",
+            });
+        }
+
+        // check user
+        const user = await userModel.findOne({ email, question });
+
+        if (!user) {
+            return res.status(400).send({
+                success: false,
+                message: "Wrong email or answer",
+            });
+        }
+
+        // hash new password
+        const hashedPassword = await hashPassword(newPassword);
+
+        // update password
+        await userModel.findByIdAndUpdate(user._id, {
+            password: hashedPassword,
+        });
+
+        res.status(200).send({
+            success: true,
+            message: "Password reset successfully",
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({
+            success: false,
+            message: "Something went wrong",
+            error,
+        });
+    }
+};
+
+
+
 //test controller 
 
 export const testController = (req, res) => {
