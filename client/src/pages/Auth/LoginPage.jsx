@@ -24,16 +24,22 @@ const LoginPage = () => {
             );
 
             if (res.data.success) {
-                toast.success(res.data && res.data.message);
-                setAuth({//
-                    ...auth,
+                setAuth({
                     user: res.data.user,
                     token: res.data.token,
                 });
-                //after refresh data lost so we store it in local stroage
-                localStorage.setItem("auth", JSON.stringify(res.data));
+
+                localStorage.setItem(
+                    "auth",
+                    JSON.stringify({
+                        user: res.data.user,
+                        token: res.data.token,
+                    })
+                );
+
                 navigate(location.state || "/");
-            } else {
+            }
+            else {
                 toast.error(res.data.message);
             }
         } catch (error) {

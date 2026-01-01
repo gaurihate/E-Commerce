@@ -8,12 +8,10 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './context/auth.jsx' //context api for global text
 
 createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-    <BrowserRouter>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </BrowserRouter>
-  </AuthProvider>
+  <BrowserRouter>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </BrowserRouter>
 
 );

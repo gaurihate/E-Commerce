@@ -4,18 +4,30 @@ import userModel from "../models/userModel.js";
 
 //protected route token based
 
-export const requireSignIn = async (req, res, next) => {
+export const requireSignIn = (req, res, next) => {
     try {
-        const decode = jwt.verify(
-            req.headers.authorization,
-            process.env.jwt_secreat
-        );
-        req.user = decode; //for next
+        const authHeader = req.headers.authorization;
+
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            return res.status(401).json({ success: false });
+        }
+
+        const token = authHeader.split(" ")[1];
+        const decode = jwt.verify(token, process.env.JWT_SECRET);
+
+        req.user = decode;
         next();
     } catch (error) {
-        console.log(error)
+        return res.status(401).json({
+            success: false,
+            message: "Invalid token"
+        });
     }
-}
+};
+
+
+
+
 
 
 
@@ -24,20 +36,27 @@ export const requireSignIn = async (req, res, next) => {
 
 export const isAdmin = async (req, res, next) => {
     try {
-        const user = await userModel.findById(req.user._id)  //where we get the id we pass the user in reques body of the  login controller
-        if (user.role !== 1) {
-            return res.status(401).send({
+        const user = await userModel.findById(req.user._id);
+
+        if (!user || user.role !== 1) {
+            return res.status(403).json({
                 success: false,
-                message: "unAuthorized access"
-            })
+                message: "Admin access denied"
+            });
         }
-        else {
-            next();
-        }
+
+        next();
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Server error",
+            error: error.message
+        });
     }
-}
+};
+
+
+
 
 
 

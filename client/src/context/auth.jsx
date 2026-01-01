@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 const AuthContext = createContext();
@@ -9,23 +9,25 @@ const AuthProvider = ({ children }) => {
         token: "",
     });
 
-    // 🔁 Restore auth after refresh
+    const [loading, setLoading] = useState(true); // ✅ NEW
+
     useEffect(() => {
         const data = localStorage.getItem("auth");
         if (data) {
-            setAuth(JSON.parse(data));
+            const parsed = JSON.parse(data);
+            setAuth({
+                user: parsed.user,
+                token: parsed.token,
+            });
+            axios.defaults.headers.common[
+                "Authorization"
+            ] = `Bearer ${parsed.token}`;
         }
+        setLoading(false); // ✅ AUTH READY
     }, []);
 
-    // 🔐 Set axios header when token changes
-    useEffect(() => {
-        if (auth?.token) {
-            axios.defaults.headers.common["Authorization"] = auth.token;
-        }
-    }, [auth.token]);
-
     return (
-        <AuthContext.Provider value={[auth, setAuth]}>
+        <AuthContext.Provider value={[auth, setAuth, loading]}>
             {children}
         </AuthContext.Provider>
     );

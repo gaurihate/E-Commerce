@@ -1,34 +1,30 @@
-import { useState, useEffect } from "react";
-import { useAuth } from "../../context/auth";
-import { Outlet } from "react-router-dom"
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from "../../context/auth.jsx";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "../Spinner.jsx";
 
-export default function PrivateRoute() {
-    const [ok, setOk] = useState(false)
-    const [auth, setAuth] = useAuth()
+const Private = () => {
+    const [auth, , loading] = useAuth();
+    const [allowed, setAllowed] = useState(null); // 🔒 locked decision
 
     useEffect(() => {
-        const authCheck = async () => {
-            const res = await axios.get('/api/v1/auth/user-auth'
-                // {
-                //     //instaed of write this we can globally set in context  API
-                //     // header: {
-                //     //     "Authorization": auth?.token
-                //     // }
-                // }// it is written in  context api
-            )
+        if (!auth?.token || allowed !== null) return;
 
-            if (res.data.ok) {
-                setOk(true)    //compoent rerender as state change
+        const checkAuth = async () => {
+            try {
+                await axios.get("/api/v1/auth/user-auth");
+                setAllowed(true); // 🔒 LOCK
+            } catch {
+                setAllowed(false);
             }
-            else {
-                setOk(false)
-            }
-        }
+        };
 
-        if (auth?.token) authCheck()
-    }, [auth?.token])
+        checkAuth();
+    }, [auth?.token, allowed]);
 
-    return ok ? <Outlet /> : <Spinner />;  // if ok true show protected page otherwise show the spinner
-} 
+    if (loading || allowed === null) return <Spinner />;
+
+    return allowed ? <Outlet /> : <Navigate to="/login" replace />;
+};
+export default Private;
