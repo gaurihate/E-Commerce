@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import Layout from "../../component/layout/Layout";
 import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../style/AuthStyle.css";
-import { useAuth } from "../../context/auth.jsx";//
+import { useAuth } from "../../context/auth.jsx";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const API = import.meta.env.VITE_API_URL;
-    const [auth, setAuth] = useAuth() //
     const location = useLocation();
+    const API = import.meta.env.VITE_API_URL;
+    const [auth, setAuth] = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -37,13 +41,16 @@ const LoginPage = () => {
                     })
                 );
 
+                // ✅ FIX: attach token to axios immediately
+                axios.defaults.headers.common[
+                    "Authorization"
+                ] = `Bearer ${res.data.token}`;
+
                 navigate(location.state || "/");
-            }
-            else {
+            } else {
                 toast.error(res.data.message);
             }
         } catch (error) {
-            console.log(error);
             toast.error("Something went wrong");
         }
     };
@@ -83,7 +90,6 @@ const LoginPage = () => {
                     >
                         Forgot Password?
                     </button>
-
                 </form>
             </div>
         </Layout>

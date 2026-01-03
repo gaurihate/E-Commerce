@@ -13,7 +13,7 @@ export const requireSignIn = (req, res, next) => {
         }
 
         const token = authHeader.split(" ")[1];
-        const decode = jwt.verify(token, process.env.JWT_SECRET);
+        const decode = jwt.verify(token, process.env.jwt_secreat);
 
         req.user = decode;
         next();
