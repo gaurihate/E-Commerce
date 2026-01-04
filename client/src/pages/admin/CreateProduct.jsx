@@ -59,7 +59,6 @@ const CreateProduct = () => {
                 {
                     headers: {
                         Authorization: `Bearer ${auth?.token}`,
-                        "Content-Type": "multipart/form-data",
                     },
                 }
             );

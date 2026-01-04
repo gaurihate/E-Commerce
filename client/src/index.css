@@ -58,3 +58,13 @@
   font-weight: bold;
   border-bottom: 1px solid #ffefba;
 }
+
+
+
+
+
+
+.product-link {
+  text-decoration: none !important;
+  color: black !important;
+}

@@ -19,6 +19,8 @@ import CreateProduct from "./pages/admin/CreateProduct.jsx";
 import Users from "./pages/admin/Users.jsx";
 import Orders from "./pages/user/Orders.jsx";
 import Profile from "./pages/user/Profile.jsx";
+import Products from "./pages/admin/Products.jsx";
+import UpdateProduct from "./pages/admin/UpdateProduct.jsx";
 function App() {
 
 
@@ -44,6 +46,8 @@ function App() {
           {/* other admin pages */}
           <Route path="/dashboard/admin/create-category" element={<CreateCategory />} />
           <Route path="/dashboard/admin/create-product" element={<CreateProduct />} />
+          <Route path="/dashboard/admin/products" element={<Products />} />
+          <Route path="/dashboard/admin/product/:slug" element={<UpdateProduct />} />
           <Route path="/dashboard/admin/users" element={<Users />} />
         </Route>
 

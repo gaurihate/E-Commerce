@@ -17,9 +17,13 @@ router.post(
     "/create-product",
     requireSignIn,
     isAdmin,
-    formidable(),
+    formidable({
+        multiples: false,
+        keepExtensions: true,
+    }),
     createProductController
 );
+
 //routes
 router.put(
     "/update-product/:pid",
