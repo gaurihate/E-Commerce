@@ -1,218 +1,145 @@
-import React from 'react'
-import { NavLink, Link } from "react-router-dom"
-import { FaShoppingCart } from "react-icons/fa"
-import { useAuth } from '../../context/auth.jsx'
+import React from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useAuth } from "../../context/auth.jsx";
+import { useCart } from "../../context/cart.jsx";
+import toast from "react-hot-toast";
+import SearchInput from "../Form/SearchInput.jsx";
+import useCategory from "../../hooks/useCategory.jsx";
+import { Badge } from "antd";
 
 const Header = () => {
     const [auth, setAuth] = useAuth();
+    const [cart] = useCart();
+    const categories = useCategory();
 
-    //clear local Storage 
-    const handleLogOut = () => {
+    const handleLogout = () => {
         setAuth({
-            ...auth, user: null, token: ''
-        })
-        localStorage.removeItem("auth")
-    }
+            ...auth,
+            user: null,
+            token: "",
+        });
+        localStorage.removeItem("auth");
+        toast.success("Logout Successfully");
+    };
 
     return (
-        <>
-            <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                <div className="container-fluid">
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon" />
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <Link className="navbar-brand" > <FaShoppingCart />  ECOMMERCE APP</Link>
+        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+            <div className="container-fluid">
+                <button
+                    className="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarTogglerDemo01"
+                >
+                    <span className="navbar-toggler-icon" />
+                </button>
 
-                        {/* ms -margin start */}
-                        <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li className="nav-item">
+                <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+                    <Link to="/" className="navbar-brand">
+                        🛒 Ecommerce App
+                    </Link>
+
+                    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                        {/* SEARCH */}
+                        <li className="nav-item">
+                            <SearchInput />
+                        </li>
+
+                        <li className="nav-item">
+                            <NavLink to="/" className="nav-link">
+                                Home
+                            </NavLink>
+                        </li>
+
+                        {/* CATEGORIES */}
+                        <li className="nav-item dropdown">
+                            <Link
+                                className="nav-link dropdown-toggle"
+                                to="/categories"
+                                data-bs-toggle="dropdown"
+                            >
+                                Categories
+                            </Link>
+
+                            <ul className="dropdown-menu">
+                                <li key="all">
+                                    <Link className="dropdown-item" to="/categories">
+                                        All Categories
+                                    </Link>
+                                </li>
+
+                                {categories?.map((c) => (
+                                    <li key={c._id}>
+                                        <Link
+                                            className="dropdown-item"
+                                            to={`/category/${c.slug}`}
+                                        >
+                                            {c.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </li>
+
+                        {!auth?.user ? (
+                            <>
+                                <li className="nav-item">
+                                    <NavLink to="/register" className="nav-link">
+                                        Register
+                                    </NavLink>
+                                </li>
+                                <li className="nav-item">
+                                    <NavLink to="/login" className="nav-link">
+                                        Login
+                                    </NavLink>
+                                </li>
+                            </>
+                        ) : (
+                            <li className="nav-item dropdown">
                                 <NavLink
-                                    to="/"
-                                    className="nav-link "
+                                    className="nav-link dropdown-toggle"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
                                 >
-                                    Home
+                                    {auth?.user?.name}
                                 </NavLink>
-                            </li>
 
-                            <li className="nav-item">
-                                <NavLink
-                                    to="/category"
-                                    className="nav-link"
-                                >
-                                    Category
+                                <ul className="dropdown-menu">
+                                    <li key="dashboard">
+                                        <NavLink
+                                            to={`/dashboard/${auth?.user?.role === 1 ? "admin" : "user"
+                                                }`}
+                                            className="dropdown-item"
+                                        >
+                                            Dashboard
+                                        </NavLink>
+                                    </li>
+                                    <li key="logout">
+                                        <NavLink
+                                            onClick={handleLogout}
+                                            to="/login"
+                                            className="dropdown-item"
+                                        >
+                                            Logout
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                        )}
+
+                        {/* CART */}
+                        <li className="nav-item">
+                            <Badge count={cart?.length} showZero>
+                                <NavLink to="/cart" className="nav-link">
+                                    Cart
                                 </NavLink>
-                            </li>
-
-                            {/* //ternary operator used */}
-                            {
-
-                                !auth.user ? (
-                                    //if login amd register
-                                    <>
-                                        <li className="nav-item">
-                                            <NavLink
-                                                to="/register"
-                                                className="nav-link"
-                                            >
-                                                Register
-                                            </NavLink>
-                                        </li>
-
-                                        <li className="nav-item">
-                                            <NavLink
-                                                to="/login"
-                                                className="nav-link"
-                                            >
-                                                Login
-                                            </NavLink>
-                                        </li>
-
-                                    </>
-                                ) : (
-                                    //else log out
-                                    <>
-                                        <li className="nav-item dropdown">
-
-                                            {/* dropdown menu name */}
-                                            <NavLink
-                                                to="#"
-                                                className="nav-link dropdown-toggle"
-                                                role="button"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                            >
-                                                {/* show name of user */}
-                                                {auth?.user?.name}
-                                            </NavLink>
-
-                                            {/* actual menu element */}
-                                            <ul className="dropdown-menu">
-                                                <li>
-                                                    <NavLink
-                                                        to={`/dashboard/${Number(auth?.user?.role) === 1 ? 'admin' : 'user'}`}
-                                                        className="dropdown-item"
-                                                    >
-                                                        Dashboard
-                                                    </NavLink>
-
-                                                </li>
-                                                <li>
-                                                    <NavLink
-                                                        onClick={handleLogOut}
-                                                        to="/login"
-                                                        className="dropdown-item"
-                                                    >
-                                                        Logout
-                                                    </NavLink>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </>
-                                )
-
-                            }
-
-                            <li className="nav-item">
-                                <NavLink
-                                    to="/cart"
-                                    className="nav-link"
-                                >
-                                    Cart (0)
-                                </NavLink>
-                            </li>
-
-                        </ul>
-
-                    </div>
+                            </Badge>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
+            </div>
+        </nav>
+    );
+};
 
-        </>
-    )
-}
-
-export default Header
-
-
-/*
-
-
-
-WHO DOES WHAT? (VERY IMPORTANT)
-Part	Responsibility
-NavLink	Change URL + detect active
-BrowserRouter	Watch URL
-Routes	Match URL
-Route	Provide component
-React	Render component
-CSS	Style active link
-
-
-
-Click Login
-↓
-URL becomes /login
-↓
-BrowserRouter notices
-↓
-Routes match /login
-↓
-<Login /> renders
-↓
-NavLink sees URL match
-↓
-.active class added
-↓
-CSS underline appears
-
-
-
-
-
-1️⃣ Click on NavLink
-↓
-2️⃣ NavLink reads: to="/login"
-↓
-3️⃣ React Router updates browser URL
-↓
-4️⃣ URL becomes: http://localhost:5173/login
-↓
-5️⃣ Page does NOT reload
-↓
-6️⃣ React Router checks Routes
-↓
-7️⃣ Finds matching route: /login
-↓
-8️⃣ Renders Login component
-↓
-9️⃣ NavLink becomes ACTIVE
-
-
-
-
-
-Login
- ↓
-Save auth (Context (ram ) + localStorage(hardisk))
- ↓
-Navigate Home
- ↓
-Refresh
- ↓
-Restore from localStorage (context API (useeffect {from local storage}))
- ↓
-User stays logged in
- ↓
-Logout(local storage clearS)
- ↓
-Clear Context + localStorage
- ↓
-Redirect to Login
-
-
- */
-
-
-
-
+export default Header;

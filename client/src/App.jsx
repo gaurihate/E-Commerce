@@ -21,6 +21,12 @@ import Orders from "./pages/user/Orders.jsx";
 import Profile from "./pages/user/Profile.jsx";
 import Products from "./pages/admin/Products.jsx";
 import UpdateProduct from "./pages/admin/UpdateProduct.jsx";
+import ProductDetails from "./pages/ProductDetails.jsx";
+import Categories from "./pages/Categories.jsx";
+import CategoryProduct from "./pages/CategoryProduct.jsx";
+import Search from "./pages/Search.jsx";
+import CartPage from "./pages/CartPage.jsx";
+
 function App() {
 
 
@@ -28,15 +34,20 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
 
+        <Route path="/product/:slug" element={<ProductDetails />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/category/:slug" element={<CategoryProduct />} />
+        <Route path="/search" element={<Search />} />
         {/* private nested route to protect dashboad using privateroutr.jsx from backend authroute "user-auth and use middleware requiredSignin" */}
         {/* here first privateroute check if allowed then access the dashboard */}
         <Route path="/dashboard/user" element={<PrivateRoute />}>
           <Route index element={<DashBoard />} />
 
           {/* other admin pages */}
-          <Route path="/dashboard/user/Profile" element={<Profile />} />
-          <Route path="/dashboard/user/Orders" element={<Orders />} />
+          <Route path="/dashboard/user/profile" element={<Profile />} />
+          <Route path="/dashboard/user/orders" element={<Orders />} />
         </Route>
 
         <Route path="/dashboard/admin" element={<AdminRoute />}>

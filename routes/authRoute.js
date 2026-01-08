@@ -1,5 +1,5 @@
 import express from "express"
-import { registerController, loginController, testController, forgotPasswordController } from '../controllers/authController.js';
+import { registerController, loginController, testController, forgotPasswordController, updateProfileController } from '../controllers/authController.js';
 import { isAdmin, requireSignIn } from "../middleware/authMiddleware.js";
 
 //router object
@@ -39,6 +39,9 @@ router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
         message: "Admin access verified",
     });
 });
+
+//update profile
+router.put("/profile", requireSignIn, updateProfileController);
 
 
 export default router;

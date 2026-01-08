@@ -3,8 +3,14 @@ import Layout from "../component/layout/Layout.jsx";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../component/Prices.jsx";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart.jsx";
+import toast from "react-hot-toast";
 
 const HomePage = () => {
+    const navigate = useNavigate();
+    const [cart, setCart] = useCart();
+
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [checked, setChecked] = useState([]);
@@ -15,41 +21,38 @@ const HomePage = () => {
 
     const API = import.meta.env.VITE_API_URL;
 
-    // get all categories
+    // ---------------- GET CATEGORIES ----------------
     const getAllCategory = async () => {
         try {
-            const { data } = await axios.get(`${API}/api/v1/category/get-category`);
-            if (data?.success) {
-                setCategories(data.category);
-            }
+            const { data } = await axios.get(
+                `${API}/api/v1/category/get-category`
+            );
+            if (data?.success) setCategories(data.category);
         } catch (error) {
             console.log(error);
         }
     };
 
-    // get total product count
+    // ---------------- GET TOTAL COUNT ----------------
     const getTotal = async () => {
         try {
-            const { data } = await axios.get(`${API}/api/v1/product/product-count`);
+            const { data } = await axios.get(
+                `${API}/api/v1/product/product-count`
+            );
             setTotal(data?.total);
         } catch (error) {
             console.log(error);
         }
     };
 
-    useEffect(() => {
-        getAllCategory();
-        getTotal();
-    }, []);
-
-    // get products
+    // ---------------- GET PRODUCTS (PAGE 1) ----------------
     const getAllProducts = async () => {
         try {
             setLoading(true);
             const { data } = await axios.get(
-                `${API}/api/v1/product/product-list/${page}`
+                `${API}/api/v1/product/product-list/1`
             );
-            setProducts(data.products);
+            setProducts(data?.products || []);
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -57,14 +60,14 @@ const HomePage = () => {
         }
     };
 
-    // load more
+    // ---------------- LOAD MORE PRODUCTS ----------------
     const loadMore = async () => {
         try {
             setLoading(true);
             const { data } = await axios.get(
                 `${API}/api/v1/product/product-list/${page}`
             );
-            setProducts([...products, ...data.products]);
+            setProducts((prev) => [...prev, ...data.products]);
             setLoading(false);
         } catch (error) {
             setLoading(false);
@@ -72,47 +75,53 @@ const HomePage = () => {
         }
     };
 
+    // ---------------- INITIAL LOAD ----------------
+    useEffect(() => {
+        getAllCategory();
+        getTotal();
+        getAllProducts();
+    }, []);
+
+    // ---------------- LOAD MORE EFFECT ----------------
     useEffect(() => {
         if (page === 1) return;
         loadMore();
     }, [page]);
 
-    // filter by category
+    // ---------------- CATEGORY FILTER ----------------
     const handleFilter = (value, id) => {
         let all = [...checked];
-        if (value) {
-            all.push(id);
-        } else {
-            all = all.filter((c) => c !== id);
-        }
+        if (value) all.push(id);
+        else all = all.filter((c) => c !== id);
         setChecked(all);
     };
 
-    useEffect(() => {
-        if (!checked.length && !radio.length) getAllProducts();
-    }, [checked.length, radio.length]);
-
-    useEffect(() => {
-        if (checked.length || radio.length) filterProduct();
-    }, [checked, radio]);
-
-    // filtered products
+    // ---------------- FILTER PRODUCTS ----------------
     const filterProduct = async () => {
         try {
             const { data } = await axios.post(
                 `${API}/api/v1/product/product-filters`,
                 { checked, radio }
             );
-            setProducts(data.products);
+            setProducts(data?.products || []);
         } catch (error) {
             console.log(error);
         }
     };
 
+    // ---------------- FILTER EFFECT ----------------
+    useEffect(() => {
+        if (!checked.length && !radio.length) {
+            getAllProducts();
+        } else {
+            filterProduct();
+        }
+    }, [checked, radio]);
+
     return (
-        <Layout title={"All Products - Best Offers"}>
+        <Layout title="All Products">
             <div className="container-fluid row mt-3">
-                {/* FILTERS */}
+                {/* FILTER SECTION */}
                 <div className="col-md-2">
                     <h4 className="text-center">Filter By Category</h4>
                     <div className="d-flex flex-column">
@@ -132,9 +141,9 @@ const HomePage = () => {
                     <div className="d-flex flex-column">
                         <Radio.Group onChange={(e) => setRadio(e.target.value)}>
                             {Prices?.map((p) => (
-                                <div key={p._id}>
-                                    <Radio value={p.array}>{p.name}</Radio>
-                                </div>
+                                <Radio key={p._id} value={p.array}>
+                                    {p.name}
+                                </Radio>
                             ))}
                         </Radio.Group>
                     </div>
@@ -147,7 +156,7 @@ const HomePage = () => {
                     </button>
                 </div>
 
-                {/* PRODUCTS */}
+                {/* PRODUCT SECTION */}
                 <div className="col-md-9">
                     <h1 className="text-center">All Products</h1>
 
@@ -170,12 +179,32 @@ const HomePage = () => {
                                     </p>
                                     <p className="card-text">₹ {p.price}</p>
 
-                                    <button className="btn btn-primary ms-1">
+                                    <button
+                                        className="btn btn-primary ms-1"
+                                        onClick={() => navigate(`/product/${p.slug}`)}
+                                    >
                                         More Details
                                     </button>
-                                    <button className="btn btn-secondary ms-1">
+
+                                    <button
+                                        className="btn btn-secondary ms-1"
+                                        onClick={() => {
+                                            const alreadyInCart = cart.find(item => item._id === p._id);
+
+                                            if (alreadyInCart) {
+                                                toast.error("Item already in cart");
+                                                return;
+                                            }
+
+                                            const updatedCart = [...cart, p];
+                                            setCart(updatedCart);
+                                            localStorage.setItem("cart", JSON.stringify(updatedCart));
+                                            toast.success("Item added to cart");
+                                        }}
+                                    >
                                         ADD TO CART
                                     </button>
+
                                 </div>
                             </div>
                         ))}
@@ -185,6 +214,7 @@ const HomePage = () => {
                         <button
                             className="btn btn-warning m-3"
                             onClick={() => setPage(page + 1)}
+                            disabled={loading}
                         >
                             {loading ? "Loading..." : "Load More"}
                         </button>
