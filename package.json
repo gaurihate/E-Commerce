@@ -15,6 +15,9 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "braintree": "^3.35.0",
+    "braintree-web": "^3.134.0",
+    "braintree-web-drop-in-react": "^1.2.0",
     "concurrently": "^9.2.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
