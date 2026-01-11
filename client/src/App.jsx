@@ -26,6 +26,7 @@ import Categories from "./pages/Categories.jsx";
 import CategoryProduct from "./pages/CategoryProduct.jsx";
 import Search from "./pages/Search.jsx";
 import CartPage from "./pages/CartPage.jsx";
+import AdminOrders from "./pages/admin/AdminOrders.jsx"
 
 function App() {
 
@@ -60,6 +61,7 @@ function App() {
           <Route path="/dashboard/admin/products" element={<Products />} />
           <Route path="/dashboard/admin/product/:slug" element={<UpdateProduct />} />
           <Route path="/dashboard/admin/users" element={<Users />} />
+          <Route path="/dashboard/admin/orders" element={<AdminOrders />} />
         </Route>
 
 

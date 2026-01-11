@@ -126,7 +126,7 @@ const CartPage = () => {
                             </h1>
                             <h4>
                                 {cart.length > 0
-                                    ? `You have ${cart.length} item(s) in your cart`
+                                    ? `You have ${cart.length} items in your cart`
                                     : "Your cart is empty"}
                             </h4>
                         </div>

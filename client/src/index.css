@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
 
 * {
   margin: 0;
@@ -67,4 +69,1153 @@
 .product-link {
   text-decoration: none !important;
   color: black !important;
+}
+
+
+
+/***********************HOME PAGE*********************/
+
+
+
+
+
+
+/* ======================================================
+   ULTRA ATTRACTIVE PREMIUM BUTTONS
+====================================================== */
+
+.card-body .btn {
+  font-size: 13.5px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  /* pill shape */
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ================= PRIMARY – MORE DETAILS ================= */
+
+.btn-primary {
+  background: linear-gradient(135deg, #111827, #374151);
+  color: #ffffff;
+  box-shadow: 0 8px 22px rgba(17, 24, 39, 0.35);
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent);
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+
+.btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.45);
+}
+
+/* ================= SECONDARY – ADD TO CART ================= */
+
+.btn-secondary {
+  background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+  color: #111827;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+/* ================= LOAD MORE – ELEGANT CTA ================= */
+
+.btn-warning {
+  background: linear-gradient(135deg, #374151, #020617);
+  color: #ffffff;
+  padding: 12px 30px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 600;
+  box-shadow: 0 12px 32px rgba(2, 6, 23, 0.45);
+}
+
+.btn-warning:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.6);
+}
+
+/* ================= RESET FILTER – CLEAN MINIMAL ================= */
+
+.col-md-2 .btn-danger {
+  background: linear-gradient(135deg, #020617, #111827);
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 13px;
+  padding: 9px;
+  letter-spacing: 0.4px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.col-md-2 .btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+
+
+
+
+/********************************ADMIN MENU*****************************/
+
+
+
+/* ======================================================
+   USER DASHBOARD MENU – GLASS + MANUAL ICONS
+====================================================== */
+
+.list-group {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(16px);
+  border-radius: 20px;
+  padding: 20px 16px;
+  box-shadow:
+    0 22px 48px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  font-family: "Inter", sans-serif;
+}
+
+/* Dashboard Heading */
+.list-group h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #020617;
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
+
+.list-group h4::after {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 2px;
+  background: linear-gradient(90deg, #020617, #64748b);
+  margin: 10px auto 0;
+  border-radius: 6px;
+}
+
+/* ======================================================
+   MENU ITEM – FLEX + ICON
+====================================================== */
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  /* vertical center */
+  gap: 12px;
+  /* space between icon & text */
+  background: transparent;
+  border: none;
+  margin-bottom: 10px;
+  border-radius: 16px;
+  padding: 12px 16px;
+
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #1e293b;
+
+  transition: all 0.35s ease;
+  position: relative;
+}
+
+/* Hover */
+.list-group-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateX(4px);
+}
+
+/* Active */
+.list-group-item.active {
+  background: linear-gradient(135deg, #020617, #1e293b);
+  color: #ffffff;
+  box-shadow: 0 12px 32px rgba(2, 6, 23, 0.35);
+}
+
+/* ======================================================
+   MANUAL ICONS (INLINE SVG)
+====================================================== */
+
+.list-group-item::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9;
+}
+
+/* Profile Icon – simple person SVG */
+.list-group-item[href*="profile"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23334155' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4 20c0-4 8-4 8-4s8 0 8 4v1H4v-1z'/%3E%3C/svg%3E");
+}
+
+/* Orders Icon – simple box SVG */
+.list-group-item[href*="orders"]::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23334155' viewBox='0 0 24 24'%3E%3Crect x='3' y='6' width='18' height='12' rx='2' ry='2'/%3E%3Cpath d='M3 6l9 6 9-6' stroke='%23334155' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+}
+
+/* Add more manual icons here for other menu items if needed */
+
+
+
+/**************************CRAETE PRODUCT******************************/
+
+
+
+/* ======================================================
+   CATEGORY PRODUCT PAGE – GLASS + PREMIUM STYLE
+====================================================== */
+
+/* Container & header */
+.category-product-page .container {
+  margin-top: 30px;
+}
+
+.category-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.category-header h4 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #020617;
+  margin-bottom: 8px;
+}
+
+.category-header h6 {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Grid */
+.category-product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* ================= PRODUCT CARD ================= */
+.category-product-card {
+  background: rgba(255, 255, 255, 0.85);
+  /* glass effect */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  overflow: hidden;
+  width: 220px;
+  /* fixed card width */
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.category-product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 35px 65px rgba(0, 0, 0, 0.12);
+}
+
+/* Product image */
+.category-product-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.category-product-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Card body */
+.category-product-card .card-body {
+  padding: 12px 10px;
+}
+
+.category-product-card .card-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #020617;
+  margin-bottom: 8px;
+}
+
+.category-product-card .card-text {
+  font-size: 13.5px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.category-product-card .price {
+  font-size: 16px;
+  font-weight: 600;
+  color: #020617;
+  margin-bottom: 12px;
+}
+
+/* Buttons */
+.category-product-card .btn-primary,
+.category-product-card .btn-secondary {
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s ease;
+}
+
+/* Primary Button */
+.category-product-card .btn-primary {
+  background: linear-gradient(135deg, #111827, #374151);
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-product-card .btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent);
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+
+.category-product-card .btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.category-product-card .btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* Secondary Button */
+.category-product-card .btn-secondary {
+  background: #64748b;
+  color: #ffffff;
+}
+
+.category-product-card .btn-secondary:hover {
+  background: #4b5563;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .category-product-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-product-card {
+    width: 90%;
+  }
+}
+
+
+
+
+
+
+/**************CART PAGE**********************/
+
+
+
+
+/* ======================================================
+   CART PAGE – GLASS STYLE & PREMIUM LOOK
+====================================================== */
+
+/* Container */
+.container {
+  margin-top: 30px;
+}
+
+/* ================= HEADER ================= */
+.row.text-center.bg-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 20px 15px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  margin-bottom: 25px;
+}
+
+.row.text-center.bg-light h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.row.text-center.bg-light h4 {
+  font-size: 16px;
+  color: #64748b;
+}
+
+/* ================= CART ITEMS ================= */
+.col-md-8 .card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.08);
+  padding: 15px;
+  display: flex;
+  gap: 15px;
+  transition: all 0.3s ease;
+}
+
+.col-md-8 .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.12);
+}
+
+/* Product Image */
+.col-md-8 .card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.col-md-8 .card:hover img {
+  transform: scale(1.05);
+}
+
+/* Product Details */
+.col-md-8 .card div.ms-3 p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.col-md-8 .card div.ms-3 button {
+  border-radius: 999px;
+  font-size: 13px;
+  padding: 5px 12px;
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.col-md-8 .card div.ms-3 button:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* ================= PAYMENT SUMMARY ================= */
+.col-md-4 {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.08);
+}
+
+.col-md-4 h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 15px;
+}
+
+.col-md-4 h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: #020617;
+  margin-bottom: 12px;
+}
+
+.col-md-4 p {
+  font-size: 14px;
+  color: #334155;
+  margin-bottom: 10px;
+}
+
+/* Login / Add Address Button */
+.col-md-4 .btn-warning {
+  border-radius: 999px;
+  font-weight: 500;
+  padding: 8px 18px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.col-md-4 .btn-warning:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Make Payment Button */
+.col-md-4 .btn-primary {
+  background: linear-gradient(135deg, #111827, #374151);
+  color: #ffffff;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 18px;
+  margin-top: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.col-md-4 .btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent);
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+
+.col-md-4 .btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.col-md-4 .btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 992px) {
+
+  .col-md-8,
+  .col-md-4 {
+    flex: 1 1 100%;
+    margin-bottom: 20px;
+  }
+
+  .col-md-8 .card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .col-md-8 .card div.ms-3 {
+    margin-left: 0;
+  }
+}
+
+
+
+
+
+/******************************PAGE NOT FOUND****************************/
+
+
+/* ======================================================
+   404 PAGE – PROFESSIONAL & BEAUTIFUL
+====================================================== */
+
+.pagenotfound-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  min-height: 80vh;
+  padding: 40px 20px;
+  background: #f3f4f6;
+  /* light background, compatible with other pages */
+}
+
+.pagenotfound-content {
+  background: rgba(255, 255, 255, 0.85);
+  /* glass effect */
+  backdrop-filter: blur(12px);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.08);
+  max-width: 450px;
+  text-align: center;
+}
+
+.pagenotfound-content h1 {
+  font-size: 80px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 15px;
+}
+
+.pagenotfound-content h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 20px;
+}
+
+.pagenotfound-content p {
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Home button */
+.home-btn {
+  background: linear-gradient(135deg, #111827, #374151);
+  color: #ffffff;
+  padding: 10px 25px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.home-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,
+      transparent,
+      rgba(255, 255, 255, 0.25),
+      transparent);
+  transform: translateX(-100%);
+  transition: 0.6s;
+}
+
+.home-btn:hover::before {
+  transform: translateX(100%);
+}
+
+.home-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* Illustration image */
+.pagenotfound-illustration img {
+  max-width: 350px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  transition: transform 0.4s ease;
+}
+
+.pagenotfound-illustration img:hover {
+  transform: scale(1.05);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .pagenotfound-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .pagenotfound-content {
+    padding: 30px 20px;
+  }
+
+  .pagenotfound-illustration img {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagenotfound-content h1 {
+    font-size: 60px;
+  }
+
+  .pagenotfound-content h2 {
+    font-size: 20px;
+  }
+
+  .pagenotfound-illustration img {
+    max-width: 200px;
+  }
+}
+
+
+
+/***************************ABOUT PAGE***************************/
+
+
+
+/* ======================================================
+   ABOUT PAGE – DARKER TEXT, SINGLE SPACING
+====================================================== */
+
+/* Container */
+.page-container.auth-page {
+  padding: 50px 20px;
+  background: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.about-page {
+  background: rgba(255, 255, 255, 0.85);
+  /* glass effect */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 900px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Title */
+.about-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  /* darker shade */
+  margin-bottom: 20px;
+}
+
+/* Main paragraph */
+.about-text {
+  font-size: 16px;
+  color: #1e293b;
+  /* darker text */
+  line-height: 1.4;
+  /* tighter spacing */
+  max-width: 700px;
+  margin-bottom: 35px;
+}
+
+/* Highlights Section */
+.about-highlights {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.about-card {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px 15px;
+  width: 240px;
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.12);
+}
+
+.about-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  /* darker */
+  margin-bottom: 10px;
+}
+
+.about-card p {
+  font-size: 14px;
+  color: #1e293b;
+  /* darker */
+  line-height: 1.4;
+}
+
+/* About List */
+.about-list {
+  list-style: none;
+  padding: 0;
+}
+
+.about-list li {
+  font-size: 15px;
+  color: #1e293b;
+  /* darker */
+  margin: 6px 0;
+  display: flex;
+  align-items: center;
+}
+
+.about-list li::before {
+  content: "✔";
+  color: #10b981;
+  /* green check mark */
+  margin-right: 8px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .about-highlights {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .about-card {
+    width: 80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-title {
+    font-size: 28px;
+  }
+
+  .about-text {
+    font-size: 15px;
+  }
+
+  .about-card h3 {
+    font-size: 16px;
+  }
+
+  .about-card p {
+    font-size: 13px;
+  }
+}
+
+
+
+
+/****************************privacy poilicy***************************/
+
+
+
+/* ======================================================
+   POLICY PAGE – GLASSY PROFESSIONAL STYLE
+====================================================== */
+
+.policy-page-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+  background: #f3f4f6;
+}
+
+.policy-card {
+  background: rgba(255, 255, 255, 0.85);
+  /* glass effect */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 800px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.policy-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.policy-text {
+  font-size: 16px;
+  color: #1e293b;
+  line-height: 1.4;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.policy-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 15px 20px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.policy-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.policy-section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 8px;
+}
+
+.policy-section p {
+  font-size: 14px;
+  color: #334155;
+  line-height: 1.4;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .policy-card {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .policy-title {
+    font-size: 28px;
+  }
+
+  .policy-text {
+    font-size: 15px;
+  }
+
+  .policy-section h3 {
+    font-size: 16px;
+  }
+
+  .policy-section p {
+    font-size: 13px;
+  }
+}
+
+
+
+
+/********************CONTACT US PAGE**************************/
+
+
+
+
+
+
+/* ======================================================
+   CONTACT PAGE – INFO STYLE, PROFESSIONAL
+====================================================== */
+
+.contact-page-container {
+  display: flex;
+  justify-content: center;
+  padding: 50px 20px;
+  background: #f3f4f6;
+}
+
+.contact-card {
+  background: rgba(255, 255, 255, 0.85);
+  /* glass effect */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  max-width: 700px;
+  width: 100%;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.contact-text {
+  font-size: 16px;
+  color: #1e293b;
+  line-height: 1.4;
+  margin-bottom: 20px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 20px;
+  border-radius: 15px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.contact-icon {
+  font-size: 28px;
+}
+
+.contact-item h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 5px;
+}
+
+.contact-item p {
+  font-size: 15px;
+  color: #334155;
+  margin: 0;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .contact-card {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-title {
+    font-size: 28px;
+  }
+
+  .contact-text {
+    font-size: 15px;
+  }
+
+  .contact-item h3 {
+    font-size: 16px;
+  }
+
+  .contact-item p {
+    font-size: 14px;
+  }
+
+  .contact-icon {
+    font-size: 24px;
+  }
+}
+
+
+
+/****************************CATEGORIES **************************************/
+
+
+
+/* ======================================================
+   CATEGORIES PAGE – GLASSY & PROFESSIONAL STYLE
+====================================================== */
+
+.categories-page {
+  padding: 50px 20px;
+  background: #f3f4f6;
+}
+
+.categories-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.category-card {
+  background: rgba(255, 255, 255, 0.85);
+  /* glass effect */
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 40px 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.category-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+}
+
+.category-btn {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(37, 99, 235, 0.1);
+}
+
+.category-btn:hover {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #fff;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.25);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .category-card {
+    padding: 30px 15px;
+    height: 130px;
+  }
+
+  .category-btn {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-card {
+    height: 120px;
+    padding: 25px 10px;
+  }
+
+  .category-btn {
+    font-size: 15px;
+    padding: 8px 18px;
+  }
 }

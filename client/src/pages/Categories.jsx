@@ -6,18 +6,26 @@ const Categories = () => {
     const categories = useCategory();
     return (
         <Layout title={"All Categories"}>
-            <div className="container">
-                <div className="row">
-                    {categories.map((c) => (
-                        <div className="col-md-6 mt-5 mb-3 gx-3 gy-3" key={c._id}>
-                            <Link to={`/category/${c.slug}`} className="btn btn-primary">
-                                {c.name}
-                            </Link>
-                        </div>
-                    ))}
+            <div className="categories-page">
+                <div className="container">
+                    <div className="row categories-grid">
+                        {categories.map((c) => (
+                            <div className="col-md-6 col-lg-4" key={c._id}>
+                                <div className="category-card">
+                                    <Link
+                                        to={`/category/${c.slug}`}
+                                        className="category-btn"
+                                    >
+                                        {c.name}
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </Layout>
+
     );
 };
 

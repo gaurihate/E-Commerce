@@ -2,14 +2,23 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
     {
-        products: {
-            type: Array,
-            required: true,
-        },
+        products: [
+            {
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "Products",
+                    required: true,
+                },
+                quantity: {
+                    type: Number,
+                    default: 1,
+                },
+            },
+        ],
         payment: {},
         buyer: {
-            type: mongoose.ObjectId,
-            ref: "users",
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "ecommernce project main",
         },
         status: {
             type: String,

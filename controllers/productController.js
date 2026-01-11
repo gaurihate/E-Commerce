@@ -119,15 +119,12 @@ export const productPhotoController = async (req, res) => {
             .findById(req.params.pid)
             .select("photo");
 
-        // ✅ SAFE CHECK
-        if (
-            !product ||
-            !product.photo ||
-            !product.photo.data
-        ) {
-            return res.status(200).sendFile(
-                process.cwd() + "/public/no-image.png"
-            );
+        // if no product or no photo
+        if (!product || !product.photo || !product.photo.data) {
+            return res.status(404).json({
+                success: false,
+                message: "No photo available",
+            });
         }
 
         res.set("Content-Type", product.photo.contentType);
@@ -135,12 +132,13 @@ export const productPhotoController = async (req, res) => {
 
     } catch (error) {
         console.log("PHOTO ERROR ❌", error);
-        return res.status(500).send({
+        return res.status(500).json({
             success: false,
-            message: "Error getting photo",
+            message: "Error while fetching photo",
         });
     }
 };
+
 
 
 // ================= UPDATE PRODUCT =================
@@ -382,13 +380,19 @@ export const brainTreePaymentController = async (req, res) => {
                     submitForSettlement: true,
                 },
             },
-            function (error, result) {
+            async (error, result) => {
                 if (result) {
                     const order = new orderModel({
-                        products: cart,
+                        products: cart.map(p => ({
+                            product: p._id,
+                            quantity: p.quantity || 1,
+                        })),
                         payment: result,
                         buyer: req.user._id,
-                    }).save();
+                    });
+
+                    await order.save();
+
                     res.json({ ok: true });
                 } else {
                     res.status(500).send(error);
