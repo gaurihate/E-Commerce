@@ -8,7 +8,7 @@ import ContactPage from "./pages/ContactPage.jsx";
 import PolicyPage from "./pages/PolicyPage.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
 import RegisterPage from "./pages/Auth/RegisterPage.jsx";
-import LoginPage from "./pages/Auth/loginPage.jsx";
+import LoginPage from "./pages/Auth/LoginPage.jsx";
 import DashBoard from "./pages/user/DashBoard.jsx";
 import PrivateRoute from "./component/Route/Private.jsx";
 import ForgotPassword from "./pages/Auth/ForgotPassword.jsx";
