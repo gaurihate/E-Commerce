@@ -9,7 +9,7 @@ const PolicyPage = () => {
                     <h1 className="policy-title">Our Policies</h1>
 
                     <p className="policy-text">
-                        At ShopEase, we value transparency and trust. Please read our policies below to ensure a smooth shopping experience.
+                        At gauriTech, we value transparency and trust. Please read our policies below to ensure a smooth shopping experience.
                     </p>
 
                     <div className="policy-section">

@@ -16,7 +16,7 @@ const ContactPage = () => {
                             <span className="contact-icon">📞</span>
                             <div>
                                 <h3>Phone</h3>
-                                <p>+91 98765 43210</p>
+                                <p>+91 1234567890</p>
                             </div>
                         </div>
 
@@ -24,7 +24,7 @@ const ContactPage = () => {
                             <span className="contact-icon">✉️</span>
                             <div>
                                 <h3>Email</h3>
-                                <p>support@shopease.com</p>
+                                <p>support@gauriTech.com</p>
                             </div>
                         </div>
 
@@ -32,7 +32,7 @@ const ContactPage = () => {
                             <span className="contact-icon">📍</span>
                             <div>
                                 <h3>Address</h3>
-                                <p>123, Tech Street, Mumbai, India</p>
+                                <p>123, Tech Street,Amravati, India</p>
                             </div>
                         </div>
 

@@ -9,7 +9,7 @@ const AboutPage = () => {
                     <h1 className="about-title">About Us</h1>
 
                     <p className="about-text">
-                        Welcome to ShopEase, your trusted e-commerce platform delivering
+                        Welcome to GauriTech, your trusted e-commerce platform delivering
                         high-quality products with a seamless shopping experience.
                     </p>
 
