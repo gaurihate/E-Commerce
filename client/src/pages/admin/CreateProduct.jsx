@@ -20,29 +20,33 @@ const CreateProduct = () => {
     const [price, setPrice] = useState("");
     const [category, setCategory] = useState("");
     const [quantity, setQuantity] = useState("");
-    const [shipping, setShipping] = useState("0"); // default No
+    const [shipping, setShipping] = useState("0");
     const [photo, setPhoto] = useState(null);
 
-    const API = import.meta.env.VITE_API_URL;
-
+    // ================= GET ALL CATEGORIES =================
     useEffect(() => {
         const getAllCategory = async () => {
             try {
-                const { data } = await axios.get(`${API}/api/v1/category/get-category`);
-                if (data.success) setCategories(data.category);
+                const { data } = await axios.get(
+                    "/api/v1/category/get-category"
+                );
+                if (data?.success) {
+                    setCategories(data.category);
+                }
             } catch (error) {
                 console.log(error);
                 toast.error("Error loading categories");
             }
         };
+
         getAllCategory();
     }, []);
 
+    // ================= CREATE PRODUCT =================
     const handleCreate = async (e) => {
         e.preventDefault();
 
         try {
-            // CREATE FormData object inside the function
             const productData = new FormData();
             productData.append("name", name);
             productData.append("description", description);
@@ -52,9 +56,8 @@ const CreateProduct = () => {
             productData.append("shipping", shipping);
             if (photo) productData.append("photo", photo);
 
-            // POST request with Axios
             const { data } = await axios.post(
-                `${API}/api/v1/product/create-product`,
+                "/api/v1/product/create-product",
                 productData,
                 {
                     headers: {
@@ -82,8 +85,10 @@ const CreateProduct = () => {
                     <div className="col-md-3">
                         <AdminMenu />
                     </div>
+
                     <div className="col-md-9">
                         <h1>Create Product</h1>
+
                         <div className="m-1 w-75">
                             <Select
                                 variant="borderless"
@@ -113,7 +118,11 @@ const CreateProduct = () => {
 
                             {photo && (
                                 <div className="mb-3 text-center">
-                                    <img src={URL.createObjectURL(photo)} alt="product" height="200" />
+                                    <img
+                                        src={URL.createObjectURL(photo)}
+                                        alt="product"
+                                        height="200"
+                                    />
                                 </div>
                             )}
 

@@ -17,7 +17,6 @@ const CartPage = () => {
 
     const dropinContainerRef = useRef(null);
     const navigate = useNavigate();
-    const API = import.meta.env.VITE_API_URL;
 
     // ---------------- TOTAL PRICE ----------------
     const totalPrice = () => {
@@ -43,9 +42,7 @@ const CartPage = () => {
     // ---------------- GET BRAINTREE TOKEN ----------------
     const getToken = async () => {
         try {
-            const { data } = await axios.get(
-                `${API}/api/v1/product/braintree/token`
-            );
+            const { data } = await axios.get("/api/v1/product/braintree/token");
             setClientToken(data.clientToken);
         } catch (error) {
             console.error(error);
@@ -56,7 +53,7 @@ const CartPage = () => {
         if (auth?.token) getToken();
     }, [auth?.token]);
 
-    // ---------------- INIT DROP-IN (IMPORTANT PART) ----------------
+    // ---------------- INIT DROP-IN ----------------
     useEffect(() => {
         if (!clientToken || cart.length === 0 || instance) return;
 
@@ -64,9 +61,7 @@ const CartPage = () => {
             {
                 authorization: clientToken,
                 container: dropinContainerRef.current,
-                paypal: {
-                    flow: "vault",
-                },
+                paypal: { flow: "vault" },
             },
             (error, dropinInstance) => {
                 if (error) {
@@ -80,11 +75,9 @@ const CartPage = () => {
 
         // cleanup
         return () => {
-            if (instance) {
-                instance.teardown();
-            }
+            if (instance) instance.teardown();
         };
-    }, [clientToken]);
+    }, [clientToken, cart, instance]);
 
     // ---------------- HANDLE PAYMENT ----------------
     const handlePayment = async () => {
@@ -97,7 +90,7 @@ const CartPage = () => {
 
             const { nonce } = await instance.requestPaymentMethod();
 
-            await axios.post(`${API}/api/v1/product/braintree/payment`, {
+            await axios.post("/api/v1/product/braintree/payment", {
                 nonce,
                 cart,
             });
@@ -121,9 +114,7 @@ const CartPage = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 text-center bg-light p-2">
-                            <h1>
-                                Hello {auth?.token ? auth.user?.name : "Guest"}
-                            </h1>
+                            <h1>Hello {auth?.token ? auth.user?.name : "Guest"}</h1>
                             <h4>
                                 {cart.length > 0
                                     ? `You have ${cart.length} items in your cart`
@@ -138,14 +129,15 @@ const CartPage = () => {
                             {cart.map((p) => (
                                 <div key={p._id} className="card mb-2 p-3 flex-row">
                                     <img
-                                        src={`${API}/api/v1/product/product-photo/${p._id}`}
+                                        src={`/api/v1/product/product-photo/${p._id}`}
                                         alt={p.name}
                                         width="100"
                                         height="100"
+                                        onError={(e) => (e.target.style.display = "none")}
                                     />
                                     <div className="ms-3">
                                         <p>{p.name}</p>
-                                        <p>{p.description?.substring(0, 30)}</p>
+                                        <p>{p.description?.substring(0, 30)}...</p>
                                         <p>${p.price}</p>
                                         <button
                                             className="btn btn-danger"

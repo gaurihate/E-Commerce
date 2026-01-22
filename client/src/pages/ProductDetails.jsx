@@ -9,23 +9,28 @@ const ProductDetails = () => {
     const [product, setProduct] = useState({});
     const [relatedProducts, setRelatedProducts] = useState([]);
 
-    const API = import.meta.env.VITE_API_URL;
-
+    // ---------------- GET PRODUCT ----------------
     const getProduct = async () => {
-        const { data } = await axios.get(
-            `${API}/api/v1/product/get-product/${params.slug}`
-        );
-        setProduct(data.product);
-        getSimilarProduct(data.product._id, data.product.category._id);
+        try {
+            const { data } = await axios.get(`/api/v1/product/get-product/${params.slug}`);
+            setProduct(data.product);
+            getSimilarProduct(data.product._id, data.product.category._id);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
+    // ---------------- GET SIMILAR PRODUCTS ----------------
     const getSimilarProduct = async (pid, cid) => {
-        const { data } = await axios.get(
-            `${API}/api/v1/product/related-product/${pid}/${cid}`
-        );
-        setRelatedProducts(data.products);
+        try {
+            const { data } = await axios.get(`/api/v1/product/related-product/${pid}/${cid}`);
+            setRelatedProducts(data.products);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
+    // ---------------- USE EFFECT ----------------
     useEffect(() => {
         if (params.slug) getProduct();
     }, [params.slug]);
@@ -35,7 +40,7 @@ const ProductDetails = () => {
             <div className="container row">
                 <div className="col-md-6">
                     <img
-                        src={`${API}/api/v1/product/product-photo/${product._id}`}
+                        src={`/api/v1/product/product-photo/${product._id}`}
                         className="img-fluid"
                         alt={product.name}
                     />
@@ -56,8 +61,9 @@ const ProductDetails = () => {
                     {relatedProducts.map((p) => (
                         <div key={p._id} className="card m-2" style={{ width: "18rem" }}>
                             <img
-                                src={`${API}/api/v1/product/product-photo/${p._id}`}
+                                src={`/api/v1/product/product-photo/${p._id}`}
                                 className="card-img-top"
+                                alt={p.name}
                             />
                             <div className="card-body">
                                 <h5>{p.name}</h5>

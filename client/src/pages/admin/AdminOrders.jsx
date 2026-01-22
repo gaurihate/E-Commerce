@@ -12,55 +12,44 @@ const AdminOrders = () => {
     const [orders, setOrders] = useState([]);
     const [auth] = useAuth();
 
-    const API = import.meta.env.VITE_API_URL;
-
     const orderStatus = [
         "Not Process",
         "Processing",
         "Shipped",
         "Delivered",
         "Cancel",
-
     ];
 
-    // ==============================
-    // GET ALL ORDERS
-    // ==============================
     const getOrders = async () => {
         try {
             const { data } = await axios.get(
-                `${API}/api/v1/auth/all-orders`,
+                "/api/v1/auth/all-orders",
                 {
                     headers: {
                         Authorization: `Bearer ${auth?.token}`,
-                    }
-
+                    },
                 }
             );
             setOrders(data);
         } catch (error) {
-            console.log("Error fetching orders:", error);
+            console.log(error);
         }
     };
 
-    // ==============================
-    // UPDATE ORDER STATUS
-    // ==============================
     const handleStatusChange = async (orderId, value) => {
         try {
             await axios.put(
-                `${API}/api/v1/auth/order-status/${orderId}`,
+                `/api/v1/auth/order-status/${orderId}`,
                 { status: value },
                 {
                     headers: {
                         Authorization: `Bearer ${auth?.token}`,
-                    }
-
+                    },
                 }
             );
             getOrders();
         } catch (error) {
-            console.log("Status update error:", error);
+            console.log(error);
         }
     };
 
@@ -79,18 +68,12 @@ const AdminOrders = () => {
                     <div className="col-md-9">
                         <h2 className="text-center mb-4">All Orders</h2>
 
-                        {orders?.length === 0 && (
-                            <h4 className="text-center text-danger">
-                                No orders found
-                            </h4>
+                        {orders.length === 0 && (
+                            <h4 className="text-center text-danger">No orders found</h4>
                         )}
 
-                        {orders?.map((order, index) => (
-                            <div
-                                className="border shadow mb-4 p-3"
-                                key={order._id}
-                            >
-                                {/* ORDER INFO */}
+                        {orders.map((order, index) => (
+                            <div className="border shadow mb-4 p-3" key={order._id}>
                                 <table className="table table-bordered">
                                     <thead>
                                         <tr>
@@ -105,11 +88,10 @@ const AdminOrders = () => {
                                     <tbody>
                                         <tr>
                                             <td>{index + 1}</td>
-
                                             <td>
                                                 <Select
                                                     bordered={false}
-                                                    defaultValue={order.status}
+                                                    value={order.status}
                                                     onChange={(value) =>
                                                         handleStatusChange(order._id, value)
                                                     }
@@ -121,57 +103,36 @@ const AdminOrders = () => {
                                                     ))}
                                                 </Select>
                                             </td>
-
                                             <td>{order?.buyer?.name}</td>
-
+                                            <td>{moment(order?.createdAt).fromNow()}</td>
                                             <td>
-                                                {moment(order?.createdAt).fromNow()}
+                                                {order?.payment?.success ? "Success" : "Failed"}
                                             </td>
-
-                                            <td>
-                                                {order?.payment?.success
-                                                    ? "Success"
-                                                    : "Failed"}
-                                            </td>
-
                                             <td>{order?.products?.length}</td>
                                         </tr>
                                     </tbody>
                                 </table>
 
-                                {/* PRODUCT DETAILS */}
                                 <div className="container">
-                                    {order?.products?.map((item) => (
+                                    {order.products.map((item) => (
                                         <div
                                             className="row card flex-row mb-2 p-3"
                                             key={item.product?._id}
                                         >
                                             <div className="col-md-4">
                                                 <img
-                                                    src={`${API}/api/v1/product/product-photo/${item.product?._id}`}
+                                                    src={`/api/v1/product/product-photo/${item.product?._id}`}
                                                     alt={item.product?.name}
                                                     className="img-fluid"
-                                                    style={{
-                                                        maxHeight: "130px",
-                                                        objectFit: "cover",
-                                                    }}
+                                                    style={{ maxHeight: "130px", objectFit: "cover" }}
                                                 />
                                             </div>
 
                                             <div className="col-md-8">
                                                 <h6>{item.product?.name}</h6>
-                                                <p>
-                                                    {item.product?.description?.substring(
-                                                        0,
-                                                        50
-                                                    )}
-                                                </p>
-                                                <p>
-                                                    Price: ₹{item.product?.price}
-                                                </p>
-                                                <p>
-                                                    Quantity: {item.quantity}
-                                                </p>
+                                                <p>{item.product?.description?.substring(0, 50)}</p>
+                                                <p>Price: ₹{item.product?.price}</p>
+                                                <p>Quantity: {item.quantity}</p>
                                             </div>
                                         </div>
                                     ))}

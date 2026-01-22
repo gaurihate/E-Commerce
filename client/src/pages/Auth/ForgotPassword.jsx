@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Layout from "../../component/layout/Layout";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../style/AuthStyle.css";
@@ -13,16 +12,17 @@ const ForgotPassword = () => {
     const [newPassword, setNewPassword] = useState("");
 
     const navigate = useNavigate();
-    const API = import.meta.env.VITE_API_URL;
 
+    // Use relative path; proxy in package.json will handle the backend
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const res = await axios.post(
-                `${API}/api/v1/auth/forgot-password`,
-                { email, question, newPassword }
-            );
+            const res = await axios.post("/api/v1/auth/forgot-password", {
+                email,
+                question,
+                newPassword,
+            });
 
             if (res.data.success) {
                 toast.success(res.data.message);
@@ -40,6 +40,7 @@ const ForgotPassword = () => {
 
     return (
         <Layout title="Forgot Password">
+            <ToastContainer />
             <div className="form-container">
                 <form onSubmit={handleSubmit}>
                     <h4 className="title">RESET PASSWORD</h4>

@@ -4,17 +4,18 @@ import AdminMenu from "../../component/layout/AdminMenu.jsx";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const API = import.meta.env.VITE_API_URL;
-
 const Products = () => {
     const [products, setProducts] = useState([]);
     const fetched = useRef(false);
 
+    // ================= GET ALL PRODUCTS =================
     const getAllProducts = async () => {
-        const { data } = await axios.get(
-            `${API}/api/v1/product/get-product`
-        );
-        setProducts(data.products);
+        try {
+            const { data } = await axios.get("/api/v1/product/get-product");
+            setProducts(data.products);
+        } catch (error) {
+            console.log("Error fetching products:", error);
+        }
     };
 
     useEffect(() => {
@@ -42,7 +43,7 @@ const Products = () => {
                             >
                                 <div className="card m-2" style={{ width: "18rem" }}>
                                     <img
-                                        src={`${API}/api/v1/product/product-photo/${p._id}`}
+                                        src={`/api/v1/product/product-photo/${p._id}`}
                                         className="card-img-top"
                                         alt={p.name}
                                         onError={(e) => (e.target.src = "/no-image.png")}

@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 const Search = () => {
     const [values] = useSearch();
     const navigate = useNavigate();
-    const API = import.meta.env.VITE_API_URL; // ✅ FIX
 
     return (
         <Layout title={"Search Results"}>
@@ -25,7 +24,7 @@ const Search = () => {
                             key={p._id}   // ✅ UNIQUE KEY
                         >
                             <img
-                                src={`${API}/api/v1/product/product-photo/${p._id}`}
+                                src={`/api/v1/product/product-photo/${p._id}`} // ✅ PROXY URL
                                 className="card-img-top"
                                 alt={p.name}
                                 onError={(e) =>

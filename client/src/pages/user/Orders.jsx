@@ -8,11 +8,12 @@ import { useAuth } from "../../context/auth.jsx";
 const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [auth] = useAuth();
-    const API = import.meta.env.VITE_API_URL;
 
+    // ---------------- GET USER ORDERS ----------------
     const getOrders = async () => {
         try {
-            const { data } = await axios.get(`${API}/api/v1/auth/orders`);
+            // Relative URL; proxy will forward to backend
+            const { data } = await axios.get("/api/v1/auth/orders");
             setOrders(data);
         } catch (error) {
             console.log(error);
@@ -33,7 +34,11 @@ const Orders = () => {
                 <div className="col-md-9">
                     <h2>Your Orders</h2>
 
-                    {orders.map((o, i) => (
+                    {orders?.length === 0 && (
+                        <p>No orders found</p>
+                    )}
+
+                    {orders.map((o) => (
                         <div className="border shadow mb-4 p-3" key={o._id}>
                             <p>
                                 <b>Status:</b> {o.status} <br />
@@ -48,7 +53,7 @@ const Orders = () => {
                                 >
                                     <div className="col-md-3">
                                         <img
-                                            src={`${API}/api/v1/product/product-photo/${item.product._id}`}
+                                            src={`/api/v1/product/product-photo/${item.product._id}`}
                                             alt={item.product.name}
                                             className="img-fluid"
                                             style={{ maxHeight: "100px" }}
@@ -58,7 +63,7 @@ const Orders = () => {
 
                                     <div className="col-md-9">
                                         <p><b>{item.product.name}</b></p>
-                                        <p>{item.product.description.substring(0, 40)}...</p>
+                                        <p>{item.product.description?.substring(0, 40)}...</p>
                                         <p>Price: ₹{item.product.price}</p>
                                         <p>Quantity: {item.quantity}</p>
                                     </div>
