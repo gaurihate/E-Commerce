@@ -9,6 +9,9 @@
     "client": "npm run dev --prefix ./client",
     "dev": "concurrently \"npm run start\" \"npm run client\""
   },
+  "engines": {
+    "node": "18.x"
+  },
   "keywords": [],
   "author": "gauri hate",
   "license": "ISC",
